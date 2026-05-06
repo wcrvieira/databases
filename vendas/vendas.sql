@@ -12,11 +12,12 @@ CREATE TABLE IF NOT EXISTS clientes
   nome_cliente VARCHAR(80) NOT NULL,
   sexo CHAR(1) NOT NULL,
   data_nascimento DATE NOT NULL,
-  telefone VARCHAR(15),
+  telefone VARCHAR(20), 
   email VARCHAR(50),
   localidade VARCHAR(60),
   bairro VARCHAR(30),
-  estado CHAR(2)
+  estado CHAR(2),
+  pais VARCHAR(20)
 );
 
 -- Criação da tabela produtos
@@ -24,10 +25,19 @@ CREATE TABLE IF NOT EXISTS produtos
 ( codigo_produto INT(6) PRIMARY KEY AUTO_INCREMENT,
   descricao VARCHAR(60) NOT NULL,
   unidade TEXT(10) NOT NULL,
-  ncm DECIMAL(12)
+  ncm DECIMAL(12),
+  data_cadastro TIMESTAMP,
+  validade DATE,
+  lote VARCHAR(10)
 );
 
 -- Criação da tabela categorias
+CREATE TABLE IF NOT EXISTS categorias
+( id_categoria INT(4) PRIMARY KEY,
+  descricao VARCHAR(100) NOT NULL,
+  grupo VARCHAR(30),
+  data_cadastro TIMESTAMP
+);
 
 
 -- Criação da tabela pedidos (Chaves estrangeiras)
@@ -38,7 +48,9 @@ CREATE TABLE IF NOT EXISTS pedidos
   cliente_cpf DECIMAL(11),
   cod_produto INT(6),
   -- Chave estrangeira conectando pedidos com clientes
+  FOREIGN KEY (cliente_cpf) REFERENCES clientes (cpf_cliente),
   -- Chave estrangeira conectando pedidos com produtos
+  FOREIGN KEY (cod_produto) REFERENCES produtos (codigo_produto)
 );
 
 -- Criação da tabela notafiscal (Chaves estrangeiras)

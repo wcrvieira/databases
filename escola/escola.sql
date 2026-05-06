@@ -31,10 +31,19 @@ CREATE TABLE IF NOT EXISTS professores
 );
 
 -- Criação da tabela cursos
-
+CREATE TABLE IF NOT EXISTS cursos
+( id_curso INT(5) PRIMARY KEY AUTO_INCREMENT,
+  nome_curso VARCHAR(40) NOT NULL,
+  area VARCHAR(20) NOT NULL,
+  duracao TEXT(10) NOT NULL
+);
 
 -- Criação da tabela horários
-
+CREATE TABLE IF NOT EXISTS horarios
+( cod_horario INT(3) PRIMARY KEY AUTO_INCREMENT,
+  descricao VARCHAR(10) NOT NULL,
+  data_cadastro TIMESTAMP
+);
 
 -- Criação da tabela turmas
 CREATE TABLE IF NOT EXISTS turmas
@@ -45,8 +54,11 @@ CREATE TABLE IF NOT EXISTS turmas
   id_curso INT(5),
   id_horario INT(3) NOT NULL,
   -- Chave estrangeira com a tabela alunos
+  FOREIGN KEY (rm_aluno) REFERENCES alunos (rm),
   -- Chave estrangeira com a tabela cursos
+  FOREIGN KEY (id_curso) REFERENCES cursos (id_curso),
   -- Chave estrangeira com a tabela horários
+  FOREIGN KEY (id_horario) REFERENCES horarios (cod_horario)
 );
 
 
