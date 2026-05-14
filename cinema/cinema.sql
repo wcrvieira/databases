@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS clientes
   estado CHAR(2)
 );
 
--- Inserção de registros na tabela de clientes
+-- Inserção dos registros da tabela de clientes
+-- Gerado pelo site https://www.4devs.com.br/gerador_de_pessoas
 INSERT INTO clientes VALUES
 (53144243124, 'Leandro Benedito da Cruz', 'M', '1973-04-23', '(31) 98452-2893', 'leandro.cruz@hottmail.com', 'Rua Beco Esperança, 152', 'Vila Renascer', 'Contagem', 'MG'),
 (70647543800, 'Rayssa Elisa da Cunha', 'F', '1998-04-22', '(86) 98417-7026', 'rayssacunha@tecsys.com.br', 'Quadra 27, 714', 'Jardim São Vicente', 'Parnaíba', 'PI'),
@@ -65,9 +66,15 @@ INSERT INTO filmes VALUES
 -- Criação da tabela salas
 CREATE TABLE IF NOT EXISTS salas
 ( num_sala INT(4) PRIMARY KEY AUTO_INCREMENT,
-  descricao VARCHAR(40),
-  lotacao CHAR(3) NOT NULL
+  descricao VARCHAR(50),
+  lotacao CHAR(4) NOT NULL
 );
+
+-- Inserção de registros na tabela salas
+INSERT INTO salas VALUES
+(0, 'Sala VIP com telão padrão IMAX 3D', '250'),
+(0, 'Sala padrão XD com zoom de 7x 3D', '300'),
+(0, 'Sala padrão 4DX com cadeiras interativas 3D', '200');
 
 -- Criação da tabela ingresso
 CREATE TABLE IF NOT EXISTS ingressos
@@ -76,12 +83,19 @@ CREATE TABLE IF NOT EXISTS ingressos
   preco_ingresso DECIMAL(8,2) NOT NULL,
   cpf_cliente_fk DECIMAL(11),
   cod_filme INT,
+  id_sala INT(4),
   -- Chave estrangeira conectando ingressos a clientes
   FOREIGN KEY (cpf_cliente_fk) REFERENCES clientes (cpf_cliente),  
   -- Chave estrangeira conectando ingressos a filmes
-  FOREIGN KEY (cod_filme) REFERENCES filmes (codigo)
+  FOREIGN KEY (cod_filme) REFERENCES filmes (codigo),
+  FOREIGN KEY (id_sala) REFERENCES salas (num_sala)
 );
 
+-- Inserção de registros na tabela ingressos com chaves estrangeiras
+INSERT INTO ingressos VALUES
+(0, CURRENT_TIMESTAMP, 50.25, 09964328842, 1, 1),
+(0, CURRENT_TIMESTAMP, 45.00, 53144243124, 3, 2),
+(0, CURRENT_TIMESTAMP, 25.50, 70647543800, 2, 3);
 
 
 

@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS alunos
   estado CHAR(2)
 );
 
--- Inserção de registros na tabela de alunos
+-- Inserção dos registros da tabela de alunos
+-- Gerado pelo site https://www.4devs.com.br/gerador_de_pessoas
 INSERT INTO alunos VALUES
 (26005, 'Nelson Cauã Mateus Assis', 66922492285, 'M', '2003-03-06', '(83) 98626-0699', 'nelsonassis@hotmmail.com', 'João Pessoa', 'Jardim Funcionários', 'PB'),
 (26101, 'Fátima Giovana Alves', 44355321150, 'F', '1999-04-11', '(96) 98990-4343', 'fatima.alves@umbernardo.com.br', 'Macapá', 'Res. Nova Esperança', 'AP'),
@@ -69,23 +70,36 @@ CREATE TABLE IF NOT EXISTS horarios
   data_cadastro TIMESTAMP
 );
 
+-- Inserção de registros na tabela de horários
+INSERT INTO horarios VALUES
+(0, 'Manhã', CURRENT_TIMESTAMP),
+(0, 'Tarde', CURRENT_TIMESTAMP),
+(0, 'Noite', CURRENT_TIMESTAMP);
+
 -- Criação da tabela turmas
 CREATE TABLE IF NOT EXISTS turmas
-( codigo_turma INT(5) PRIMARY KEY,
-  descricao TEXT(20) NOT NULL, 
+( codigo_turma INT(5) PRIMARY KEY AUTO_INCREMENT,
+  descricao VARCHAR(30) NOT NULL, 
   data_cadastro TIMESTAMP,  
   rm_aluno INT(6),
   id_curso INT(5),
-  id_horario INT(3) NOT NULL,
+  id_horario INT(3),
+  cod_professor INT,
   -- Chave estrangeira com a tabela alunos
   FOREIGN KEY (rm_aluno) REFERENCES alunos (rm),
   -- Chave estrangeira com a tabela cursos
   FOREIGN KEY (id_curso) REFERENCES cursos (id_curso),
   -- Chave estrangeira com a tabela horários
-  FOREIGN KEY (id_horario) REFERENCES horarios (cod_horario)
+  FOREIGN KEY (id_horario) REFERENCES horarios (cod_horario),
+  -- Chave estrangeira com a tabela professores
+  FOREIGN KEY (cod_professor) REFERENCES professores (matricula)
 );
 
-
+-- Inserção de resgistros na tabela turmas
+INSERT INTO turmas VALUES
+(0, 'Turma padrão com 40 alunos', CURRENT_TIMESTAMP, 26005, 3, 3, 1),
+(0, 'Turma extra com 35 alunos', CURRENT_TIMESTAMP, 26255, 1, 2, 3),
+(0, 'Turma extra com 25 alunos', CURRENT_TIMESTAMP, 26101, 2, 1, 2);
 
 
 

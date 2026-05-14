@@ -76,6 +76,12 @@ CREATE TABLE IF NOT EXISTS pedidos
   FOREIGN KEY (cod_produto) REFERENCES produtos (codigo_produto)
 );
 
+-- Inserção de registros na tabela de pedidos com chave estrangeira
+INSERT INTO pedidos VALUES
+(0, CURRENT_TIMESTAMP, 255.99, 05779690308, 1),
+(0, CURRENT_TIMESTAMP, 1125.50, 80269082280, 2),
+(0, CURRENT_TIMESTAMP, 520.22, 76777009183, 3);
+
 -- Criação da tabela notafiscal (Chaves estrangeiras)
 CREATE TABLE IF NOT EXISTS notafiscal 
 ( num_nf INT(6) PRIMARY KEY AUTO_INCREMENT,
@@ -85,6 +91,11 @@ CREATE TABLE IF NOT EXISTS notafiscal
   FOREIGN KEY (cod_pedido) REFERENCES pedidos (id_pedido)
 );
 
+-- Inserção de registros na tabela de notafiscal - venda realizada
+INSERT INTO notafiscal VALUES
+(0, CURRENT_TIMESTAMP, 2500.25, 1),
+(0, CURRENT_TIMESTAMP, 2500.25, 1),
+(0, CURRENT_TIMESTAMP, 2500.25, 1);
 
 
 
